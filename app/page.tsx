@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState, useRef, useCallback } from "react"
 import { Hero } from "@/components/hero"
-import { MatchCard, SkeletonCard } from "@/components/match-card"
+import { MatchCard, MatchSkeleton } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
 import { Trophy, TrendingUp, ChevronRight, LayoutGrid, Loader2, Sparkles } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { slugify, cn } from "@/lib/utils"
+import { TOP_LEAGUES } from "@/lib/constants"
 
 export default function Home() {
   const [matches, setMatches] = useState<any[]>([])
@@ -66,32 +67,7 @@ export default function Home() {
     setHasMore(true)
   }, [activeLeague])
 
-  const topLeagues = [
-    {
-      name: "English Premier League",
-      color: "from-[#3d195d] via-[#2a1140] to-[#1a0a29]",
-      logo: "/premiere_league-removebg-preview.png",
-      accent: "text-purple-400"
-    },
-    {
-      name: "Romanian Super Liga",
-      color: "from-[#002d5e] via-[#001f42] to-[#001229]",
-      logo: "/romanion-league.png",
-      accent: "text-blue-400"
-    },
-    {
-      name: "German Bundesliga",
-      color: "from-[#1f1f1f] via-[#121212] to-black",
-      logo: "/Bundesliga_logo_(2017).svg.webp",
-      accent: "text-red-500"
-    },
-    {
-      name: "Italian Serie B",
-      color: "from-[#005c30] via-[#003d20] to-[#002915]",
-      logo: "/serie-b.png",
-      accent: "text-green-400"
-    },
-  ]
+  const topLeagues = TOP_LEAGUES
 
   const [visibleCount, setVisibleCount] = useState(5)
 
@@ -343,7 +319,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
               {loading ? (
-                Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
+                Array.from({ length: 8 }).map((_, i) => <MatchSkeleton key={i} />)
               ) : matches.length > 0 ? (
                 matches.map((match, i) => {
                   if (matches.length === i + 1) {

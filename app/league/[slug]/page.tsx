@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
-import { MatchCard, SkeletonCard } from "@/components/match-card"
+import { MatchCard, MatchSkeleton } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
 import { Trophy, Calendar, Filter, ArrowLeft, Clock, Activity, SortAsc, SortDesc, Sparkles } from "lucide-react"
 import Link from "next/link"
@@ -182,7 +182,7 @@ export default function LeaguePage() {
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
                             <AnimatePresence mode="popLayout">
                                 {loading ? (
-                                    Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
+                                    Array.from({ length: 6 }).map((_, i) => <MatchSkeleton key={i} />)
                                 ) : matches.length > 0 ? (
                                     matches.map((match, i) => (
                                         <MatchCard key={i} match={match} index={i} />

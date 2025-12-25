@@ -31,7 +31,7 @@ export function Hero() {
                         className="relative hidden lg:block h-[600px] w-full"
                     >
                         {/* Main Hero Image */}
-                        <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10">
+                        <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-2xl border border-border/50 dark:border-white/10">
                             <Image
                                 src="/soccer-player-with-ball-grass-field.jpg"
                                 alt="Agile soccer player active on grass field"
@@ -45,18 +45,18 @@ export function Hero() {
                         {/* Floating Glass Card 1: Live Stats */}
                         <motion.div
                             style={{ y: y1 }}
-                            className="absolute -right-8 top-20 glass p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 w-48"
+                            className="absolute -right-8 top-20 glass p-4 rounded-2xl shadow-lg border border-border/50 w-48"
                         >
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="p-2 bg-green-500/20 rounded-lg">
-                                    <TrendingUp className="w-4 h-4 text-green-400" />
+                                    <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Live Activity</p>
-                                    <p className="text-sm font-black">42 Matches</p>
+                                    <p className="text-sm font-black text-foreground">42 Matches</p>
                                 </div>
                             </div>
-                            <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                            <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
                                 <div className="h-full bg-green-500 w-3/4 animate-pulse" />
                             </div>
                         </motion.div>
@@ -64,20 +64,20 @@ export function Hero() {
                         {/* Floating Glass Card 2: Player Rating */}
                         <motion.div
                             style={{ y: y2 }}
-                            className="absolute -left-8 bottom-32 glass p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 flex items-center gap-4"
+                            className="absolute -left-8 bottom-32 glass p-4 rounded-2xl shadow-lg border border-border/50 flex items-center gap-4"
                         >
                             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
-                                <Image src="/serie-b.png" alt="League" fill className="object-contain bg-white/10 p-1" />
+                                <Image src="/Premier_League_Logo.svg.png" alt="League" fill className="object-contain bg-muted/20 p-1" />
                             </div>
                             <div>
                                 <div className="flex items-center gap-1 mb-1">
-                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
                                 </div>
-                                <p className="text-xs font-black">Top Rated League</p>
+                                <p className="text-xs font-black text-foreground">Top Rated League</p>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -102,9 +102,9 @@ export function Hero() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="font-tourney text-7xl md:text-8xl lg:text-[7rem] leading-[0.9] font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/50"
+                                className="font-tourney text-7xl md:text-8xl lg:text-[7rem] leading-[0.9] font-black uppercase"
                             >
-                                APEX<br /><span className="text-primary/90">SPORTS</span>
+                                <span className="text-foreground">APEX</span><br /><span className="text-primary">SPORTS</span>
                             </motion.h1>
 
                             <motion.h2
@@ -113,7 +113,7 @@ export function Hero() {
                                 transition={{ delay: 0.4 }}
                                 className="text-2xl md:text-3xl font-light text-muted-foreground tracking-tight"
                             >
-                                Global Football, <span className="text-white font-medium italic">Unified.</span>
+                                Global Football, <span className="text-foreground font-medium italic">Unified.</span>
                             </motion.h2>
 
                             <motion.p
@@ -132,15 +132,15 @@ export function Hero() {
                             transition={{ delay: 0.6 }}
                             className="flex flex-wrap items-center gap-4"
                         >
-                            <Link href="#leagues" className="group relative px-8 py-4 bg-white text-black rounded-xl font-black uppercase tracking-wider text-xs overflow-hidden transition-all hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
+                            <Link href="#leagues" className="group relative px-8 py-4 bg-foreground text-background rounded-xl font-black uppercase tracking-wider text-xs overflow-hidden transition-all hover:opacity-90 shadow-xl">
                                 <span className="relative z-10 flex items-center gap-2">
                                     Explore Leagues <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </span>
                             </Link>
 
-                            <Link href="#matches" className="group px-8 py-4 glass border border-white/10 rounded-xl font-black uppercase tracking-wider text-xs hover:bg-white/5 transition-all flex items-center gap-2">
-                                <PlayCircle className="w-4 h-4 text-primary" />
-                                Watch Highlights
+                            <Link href="#matches" className="group px-8 py-4 glass border border-border/50 rounded-xl font-black uppercase tracking-wider text-xs hover:bg-muted/50 transition-all flex items-center gap-2">
+                                {/* <PlayCircle className="w-4 h-4 text-primary" /> */}
+                                Featured Matches
                             </Link>
                         </motion.div>
 
@@ -149,18 +149,18 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8 }}
-                            className="pt-8 border-t border-white/5 w-full grid grid-cols-3 gap-8"
+                            className="pt-8 border-t border-border/50 w-full grid grid-cols-3 gap-8"
                         >
                             <div>
-                                <h4 className="text-2xl font-black font-tourney">40+</h4>
+                                <h4 className="text-2xl font-black font-tourney text-foreground">40+</h4>
                                 <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Leagues</p>
                             </div>
                             <div>
-                                <h4 className="text-2xl font-black font-tourney">24/7</h4>
+                                <h4 className="text-2xl font-black font-tourney text-foreground">24/7</h4>
                                 <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Live Data</p>
                             </div>
                             <div>
-                                <h4 className="text-2xl font-black font-tourney">10M+</h4>
+                                <h4 className="text-2xl font-black font-tourney text-foreground">10M+</h4>
                                 <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Fans</p>
                             </div>
                         </motion.div>

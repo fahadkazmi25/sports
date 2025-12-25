@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { MatchCard, SkeletonCard } from "@/components/match-card"
+import { MatchCard, MatchSkeleton, } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, Filter, X, Trophy, Loader2 } from "lucide-react"
 
@@ -109,7 +109,7 @@ function SearchContent() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             <AnimatePresence mode="popLayout">
                                 {loading ? (
-                                    Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
+                                    Array.from({ length: 6 }).map((_, i) => <MatchSkeleton key={i} />)
                                 ) : results.length > 0 ? (
                                     results.map((match: any, i) => (
                                         <MatchCard key={i} match={match} index={i} highlight={debouncedValue} />
@@ -130,9 +130,9 @@ function SearchContent() {
                     </>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-40 grayscale pointer-events-none">
-                        <SkeletonCard />
-                        <SkeletonCard />
-                        <SkeletonCard />
+                        <MatchSkeleton />
+                        <MatchSkeleton />
+                        <MatchSkeleton />
                     </div>
                 )}
             </div>
