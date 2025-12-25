@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     Trophy, Calendar, Clock, ArrowLeft, Shield,
     MapPin, Radio, Share2, Info, ChevronRight, Activity,
-    Timer
+    Timer, Loader2
 } from "lucide-react"
 import Link from "next/link"
 import { MatchCard, SkeletonCard } from "@/components/match-card"

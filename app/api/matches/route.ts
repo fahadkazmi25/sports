@@ -30,10 +30,30 @@ export async function GET(request: Request) {
 
         // Defensive filtering and mapping
         if (league) {
-            matches = matches.filter((m: any) =>
-                m.league?.toLowerCase().replace(/\s+/g, '-') === league.toLowerCase() ||
-                m.league?.toLowerCase() === league.toLowerCase()
-            );
+            // Normalize both the filter value and league names for proper Unicode comparison
+            const normalizedFilter = league.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+            matches = matches.filter((m: any) => {
+                if (!m.league) return false;
+
+                // Try exact match first
+                if (m.league.toLowerCase() === league.toLowerCase()) return true;
+
+                // Try normalized match (handles accented characters)
+                const normalizedLeague = m.league.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                if (normalizedLeague === normalizedFilter) return true;
+
+                // Try slugified match (consistent with frontend slugify)
+                const slugifiedData = m.league.toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[^\w-]+/g, '');
+
+                const slugifiedFilter = league.toLowerCase().replace(/\s+/g, '-');
+
+                return slugifiedData === slugifiedFilter || normalizedLeague.replace(/\s+/g, '-') === slugifiedFilter;
+            });
         }
 
         if (search) {

@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { MatchCard, SkeletonCard } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
-import { Trophy, Calendar, Filter, ArrowLeft, Clock, Activity, SortAsc, SortDesc } from "lucide-react"
+import { Trophy, Calendar, Filter, ArrowLeft, Clock, Activity, SortAsc, SortDesc, Sparkles } from "lucide-react"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
+import Image from "next/image"
+import { cn, slugify } from "@/lib/utils"
 
 export default function LeaguePage() {
     const { slug } = useParams()
@@ -17,6 +18,23 @@ export default function LeaguePage() {
     const [matches, setMatches] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
     const [leagueName, setLeagueName] = useState("")
+
+    const leagueLogos: Record<string, string> = {
+        "english-premier-league": "/premiere_league-removebg-preview.png",
+        "german-bundesliga": "/Bundesliga_logo_(2017).svg.webp",
+        "romanian-super-liga": "/romanion-league.png",
+        "italian-serie-b": "/serie-b.png"
+    }
+
+    const leagueColors: Record<string, string> = {
+        "english-premier-league": "from-[#3d195d] via-[#2a1140] to-[#1a0a29]",
+        "german-bundesliga": "from-[#1f1f1f] via-[#121212] to-black",
+        "romanian-super-liga": "from-[#002d5e] via-[#001f42] to-[#001229]",
+        "italian-serie-b": "from-[#005c30] via-[#003d20] to-[#002915]"
+    }
+
+    const currentLogo = leagueLogos[slug as string]
+    const currentTheme = leagueColors[slug as string] || "from-slate-900 via-gray-900 to-black"
 
     useEffect(() => {
         setLoading(true)
@@ -49,11 +67,21 @@ export default function LeaguePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="relative h-[300px] md:h-[450px] rounded-[40px] overflow-hidden mb-16 shadow-2xl group"
                 >
-                    <div className="absolute inset-0 gradient-sports opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+                    <div className={cn(
+                        "absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br",
+                        currentTheme
+                    )} />
+
+                    {/* Background Decorative Elements */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] -mr-64 -mt-64" />
+                        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/40 rounded-full blur-[120px] -ml-64 -mb-64" />
+                    </div>
+
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10">
                         <Link
                             href="/"
-                            className="absolute top-8 left-8 flex items-center gap-2 text-white/70 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] glass px-4 py-2 rounded-xl"
+                            className="absolute top-8 left-8 flex cursor-pointer items-center gap-2 text-white/70 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] glass px-4 py-2 rounded-xl"
                         >
                             <ArrowLeft className="w-4 h-4" /> Back to Universe
                         </Link>
@@ -64,9 +92,26 @@ export default function LeaguePage() {
                             transition={{ delay: 0.2 }}
                             className="relative"
                         >
-                            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-40 h-40 bg-white/20 rounded-full blur-[80px] animate-pulse" />
-                            <Trophy className="w-20 h-20 text-white mb-8 mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]" />
-                            <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase italic leading-tight drop-shadow-2xl">
+                            <div className="relative mb-8">
+                                {/* Logo Background Pool for Contrast */}
+                                <div className="absolute inset-0 bg-white/10 rounded-full blur-[60px] transform scale-150" />
+
+                                {currentLogo ? (
+                                    <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto transform hover:scale-110 transition-transform duration-500 drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+                                        <Image
+                                            src={currentLogo}
+                                            alt={leagueName}
+                                            fill
+                                            className="object-contain relative z-10"
+                                            sizes="(max-width: 768px) 128px, 160px"
+                                        />
+                                    </div>
+                                ) : (
+                                    <Trophy className="w-24 h-24 text-white mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]" />
+                                )}
+                            </div>
+
+                            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase italic leading-tight drop-shadow-2xl">
                                 {leagueName}
                             </h1>
                             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">

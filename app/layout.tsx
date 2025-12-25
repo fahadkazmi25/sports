@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Outfit, Tourney } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { cn } from "@/lib/utils";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const tourney = Tourney({ subsets: ["latin"], variable: "--font-tourney" });
 
 export const metadata: Metadata = {
   title: {
@@ -39,8 +40,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen font-sans antialiased selection:bg-primary/30",
-          outfit.variable
+          "min-h-screen font-outfit antialiased selection:bg-primary/30",
+          outfit.variable,
+          tourney.variable
         )}
       >
         <ThemeProvider

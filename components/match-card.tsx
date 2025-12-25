@@ -63,7 +63,7 @@ export function MatchCard({
             {/* League Header */}
             <div className="flex items-center justify-between mb-8 relative z-20">
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground bg-muted/50 px-3 py-1 rounded-full w-fit mb-2">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground bg-muted/50 px-2 py-1 rounded-full w-fit mb-2">
                         {match.league || "Unknown League"}
                     </span>
                     <div className="flex items-center gap-2">
@@ -79,9 +79,9 @@ export function MatchCard({
                         )}
                     </div>
                 </div>
-                <div className="flex items-center space-x-1.5 text-primary bg-primary/10 px-3 py-1.5 rounded-2xl border border-primary/20">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span className="text-sm font-black italic tracking-tighter">{match.time_display || match.time}</span>
+                <div className="flex text-nowrap items-center space-x-1.5 text-primary bg-primary/10 px-2 py-1 rounded-2xl border border-primary/20">
+                    <Clock className="w-3 h-3" />
+                    <span className="text-xs font-black italic tracking-tighter">{match.time_display || match.time}</span>
                 </div>
             </div>
 
@@ -89,9 +89,11 @@ export function MatchCard({
             <div className="flex items-center justify-between gap-6 relative z-20 mb-8">
                 {/* Home Team */}
                 <div className="flex-1 flex flex-col items-center text-center">
-                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-blue-600/10 to-transparent border border-white/5 flex items-center justify-center mb-4 shadow-2xl group-hover:scale-110 group-hover:border-primary/30 transition-all duration-500">
-                        <Shield className="w-10 h-10 text-primary drop-shadow-glow" />
-                        <span className="absolute text-[10px] font-black text-white/40 uppercase tracking-tighter">{homeInitials}</span>
+                    <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-blue-600/10 to-transparent border border-white/5 flex items-center justify-center mb-4 shadow-2xl  group-hover:border-primary/30 transition-all duration-500">
+                        <Shield className="w-10 h-10 text-primary" />
+                        <span className="absolute inset-0 flex items-center justify-center z-10 text-[10px] font-black text-foreground uppercase tracking-tighter transition-colors duration-200">
+                            {homeInitials}
+                        </span>
                     </div>
                     <h3 className="text-sm font-black line-clamp-2 min-h-[40px] uppercase italic tracking-tighter leading-tight text-foreground/90 group-hover:text-primary transition-colors">
                         {highlightText(match.home || "TBD")}
@@ -103,7 +105,7 @@ export function MatchCard({
                 <div className="flex flex-col items-center justify-center">
                     <div className="relative">
                         <div className="h-px w-8 bg-gradient-to-r from-transparent via-white/20 to-transparent absolute top-1/2 left-1/2 -translate-x-1/2" />
-                        <div className="w-10 h-10 rounded-full glass border border-primary/30 flex items-center justify-center text-[10px] font-black text-primary shadow-xl scale-90 group-hover:scale-110 transition-transform duration-500 bg-background/80">
+                        <div className="w-10 h-10 rounded-full glass border border-primary/30 flex items-center justify-center text-[10px] font-black text-primary shadow-xl   transition-transform duration-500 bg-background/80">
                             VS
                         </div>
                     </div>
@@ -111,9 +113,11 @@ export function MatchCard({
 
                 {/* Away Team */}
                 <div className="flex-1 flex flex-col items-center text-center">
-                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-600/10 to-transparent border border-white/5 flex items-center justify-center mb-4 shadow-2xl group-hover:scale-110 group-hover:border-orange-500/30 transition-all duration-500">
-                        <Shield className="w-10 h-10 text-orange-500/80 drop-shadow-glow" />
-                        <span className="absolute text-[10px] font-black text-white/40 uppercase tracking-tighter">{awayInitials}</span>
+                    <div className="relative w-20 h-20 rounded-3xl bg-gradient-to-br from-orange-600/10 to-transparent border border-white/5 flex items-center justify-center mb-4 shadow-2xl  group-hover:border-orange-500/30 transition-all duration-500">
+                        <Shield className="w-10 h-10 text-orange-500/80" />
+                        <span className="absolute inset-0 flex items-center justify-center z-10 text-[10px] font-black text-foreground uppercase tracking-tighter transition-colors duration-200">
+                            {awayInitials}
+                        </span>
                     </div>
                     <h3 className="text-sm font-black line-clamp-2 min-h-[40px] uppercase italic tracking-tighter leading-tight text-foreground/90 group-hover:text-orange-500 transition-colors">
                         {highlightText(match.away || "TBD")}
@@ -128,9 +132,9 @@ export function MatchCard({
                     <Calendar className="w-4 h-4 text-primary/50" />
                     <span className="text-xs font-bold tracking-tight">{match.date}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs font-black text-primary uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+                {/* <div className="flex items-center gap-1.5 text-xs font-black text-primary uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
                     Analytics <ArrowRight className="w-4 h-4" />
-                </div>
+                </div> */}
             </div>
         </motion.div>
     )

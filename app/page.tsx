@@ -4,8 +4,9 @@ import React, { useEffect, useState, useRef, useCallback } from "react"
 import { Hero } from "@/components/hero"
 import { MatchCard, SkeletonCard } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
-import { Trophy, TrendingUp, ChevronRight, LayoutGrid, Loader2 } from "lucide-react"
+import { Trophy, TrendingUp, ChevronRight, LayoutGrid, Loader2, Sparkles } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { slugify, cn } from "@/lib/utils"
 
 export default function Home() {
@@ -66,16 +67,45 @@ export default function Home() {
   }, [activeLeague])
 
   const topLeagues = [
-    { name: "English Premier League", color: "from-purple-600 to-indigo-600" },
-    { name: "Romanian Super Liga", color: "from-yellow-500 to-orange-500" },
-    { name: "German Bundesliga", color: "from-red-600 to-pink-600" },
-    { name: "Italian Serie B", color: "from-blue-600 to-cyan-600" },
+    {
+      name: "English Premier League",
+      color: "from-[#3d195d] via-[#2a1140] to-[#1a0a29]",
+      logo: "/premiere_league-removebg-preview.png",
+      accent: "text-purple-400"
+    },
+    {
+      name: "Romanian Super Liga",
+      color: "from-[#002d5e] via-[#001f42] to-[#001229]",
+      logo: "/romanion-league.png",
+      accent: "text-blue-400"
+    },
+    {
+      name: "German Bundesliga",
+      color: "from-[#1f1f1f] via-[#121212] to-black",
+      logo: "/Bundesliga_logo_(2017).svg.webp",
+      accent: "text-red-500"
+    },
+    {
+      name: "Italian Serie B",
+      color: "from-[#005c30] via-[#003d20] to-[#002915]",
+      logo: "/serie-b.png",
+      accent: "text-green-400"
+    },
   ]
+
+  const [visibleCount, setVisibleCount] = useState(5)
+
+  const sortedLeagues = Object.entries(leagueStats).sort((a, b) => b[1] - a[1])
+  const displayedLeagues = sortedLeagues.slice(0, visibleCount)
+  const hasMoreLeaguesToLoad = visibleCount < sortedLeagues.length
+
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 5, sortedLeagues.length))
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
-
 
       {/* Top Leagues Navigation - Featured */}
       <section id="leagues" className="py-20 bg-muted/30">
@@ -87,36 +117,82 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {topLeagues.map((league, i) => (
               <Link
                 key={league.name}
                 href={`/league/${slugify(league.name)}`}
-                className="group"
+                className="group perspective-1000"
               >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.1 }}
-                  whileHover={{ y: -10 }}
+                  // initial={{ opacity: 0, y: 30 }}
+                  // whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
+                  // whileHover={{
+                  //   y: -10,
+                  //   rotateX: 2,
+                  //   rotateY: 2,
+                  //   scale: 1.02
+                  // }}
                   className={cn(
-                    "relative h-48 rounded-3xl overflow-hidden shadow-2xl transition-all",
+                    "relative h-64 rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500",
                     "bg-gradient-to-br " + league.color
                   )}
                 >
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                    <Trophy className="w-8 h-8 text-white/50 group-hover:text-white group-hover:scale-125 transition-all" />
-                    <div>
-                      <h3 className="text-xl font-black text-white uppercase italic leading-tight">
+                  {/* Decorative Background Elements */}
+                  <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl -mr-10 -mt-10" />
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/40 rounded-full blur-3xl -ml-10 -mb-10" />
+                  </div>
+
+                  {/* Glass Overlay */}
+                  <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] group-hover:backdrop-blur-none transition-all duration-500" />
+
+                  {/* Animated Gloss Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+
+                  <div className="absolute inset-0 p-8 flex flex-col items-center justify-between z-10">
+                    <div className="w-full flex justify-between items-start">
+                      <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-xl group-hover:border-white/20 transition-all">
+                        <Sparkles className={cn("w-5 h-5", league.accent)} />
+                      </div>
+                      <div className="px-3 py-1 rounded-full bg-black/30 border border-white/5 backdrop-blur-md text-[8px] font-black uppercase tracking-[0.2em] text-white/70">
+                        Top Elite
+                      </div>
+                    </div>
+
+                    <div className={cn(
+                      "relative w-28 h-28 mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center rounded-full",
+                      league.name === "English Premier League" && " "
+                    )}>
+                      {/* Logo Glow/Pool */}
+                      <div className="absolute inset-0 bg-white/10 rounded-full blur-2xl transform scale-150" />
+
+                      <Image
+                        src={league.logo}
+                        alt={league.name}
+                        fill
+                        className="relative z-10 object-contain p-2"
+                        sizes="112px"
+                      />
+                    </div>
+
+                    <div className="text-center w-full">
+                      <h3 className="text-lg font-black text-white uppercase italic tracking-tighter leading-tight group-hover:text-white transition-colors">
                         {league.name}
                       </h3>
-                      <p className="text-white/60 text-[10px] font-black tracking-[0.2em] uppercase mt-2">
-                        {leagueStats[league.name] || 0} Matches Scheduled
-                      </p>
+                      <div className="mt-2 flex items-center justify-center gap-2">
+                        <span className="h-px w-4 bg-white/20" />
+                        <p className="text-white/50 text-[9px] font-bold tracking-[0.2em] uppercase">
+                          {leagueStats[league.name] || 0} Matches
+                        </p>
+                        <span className="h-px w-4 bg-white/20" />
+                      </div>
                     </div>
                   </div>
-                  <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform" />
+
+                  {/* Bottom Highlight */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </motion.div>
               </Link>
             ))}
@@ -128,29 +204,124 @@ export default function Home() {
       <section id="matches" className="py-20 relative">
         <div className="container mx-auto px-4">
           {/* League Navigation with Match Counts */}
-          <nav className="mb-12 glass border border-white/5 py-4 rounded-[2rem] overflow-hidden">
-            <div className="px-4 flex items-center gap-4 overflow-x-auto no-scrollbar">
-              <button
-                onClick={() => setActiveLeague("all")}
-                className={cn(
-                  "whitespace-nowrap px-6 py-2 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase transition-all flex items-center gap-2",
-                  activeLeague === "all" ? "gradient-sports text-white shadow-lg" : "hover:bg-muted text-muted-foreground"
-                )}
-              >
-                <LayoutGrid className="w-3 h-3" /> All
-              </button>
-              {Object.entries(leagueStats).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([name, count]) => (
-                <button
-                  key={name}
-                  onClick={() => setActiveLeague(name)}
-                  className={cn(
-                    "whitespace-nowrap px-6 py-2 rounded-2xl font-black text-[10px] tracking-[0.2em] uppercase transition-all flex items-center gap-2",
-                    activeLeague === name ? "gradient-sports text-white shadow-lg" : "glass hover:bg-muted text-muted-foreground"
-                  )}
+          <nav className="mb-12 glass border border-white/5 p-8 rounded-[3rem] overflow-hidden">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center justify-between px-2">
+                <motion.div
+                  className="flex items-center gap-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  {name} <span className="opacity-40">{count}</span>
-                </button>
-              ))}
+                  <motion.div
+                    className="p-2 rounded-xl bg-primary/10 text-primary"
+                    whileHover={{ scale: 1.1, rotate: 12 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Trophy className="w-5 h-5" />
+                  </motion.div>
+                  <div>
+                    <span className="block text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-1">League Filters</span>
+                    <h3 className="text-xl font-black uppercase italic tracking-tighter">Browse Categories</h3>
+                  </div>
+                </motion.div>
+              </div>
+
+              <motion.div
+                layout
+                className="flex flex-wrap items-center justify-center gap-3"
+                initial={false}
+                animate={{
+                  height: "auto",
+                  transition: {
+                    duration: 0.4,
+                    ease: [0.4, 0, 0.2, 1]
+                  }
+                }}
+              >
+                <motion.button
+                  onClick={() => setActiveLeague("all")}
+                  className={cn(
+                    "whitespace-nowrap px-6 py-3 rounded-2xl cursor-pointer font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-2",
+                    activeLeague === "all" ? "gradient-sports text-white shadow-xl" : "hover:bg-muted text-muted-foreground bg-muted/20"
+                  )}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  layout
+                >
+                  <LayoutGrid className="w-4 h-4" /> All Matches
+                </motion.button>
+
+                <AnimatePresence mode="popLayout">
+                  {displayedLeagues.map(([name, count], index) => (
+                    <motion.button
+                      key={name}
+                      layout
+                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.3,
+                          delay: index * 0.03,
+                          ease: [0.4, 0, 0.2, 1]
+                        }
+                      }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.8,
+                        y: -20,
+                        transition: {
+                          duration: 0.2,
+                          delay: (displayedLeagues.length - index) * 0.02
+                        }
+                      }}
+                      onClick={() => setActiveLeague(name)}
+                      className={cn(
+                        "whitespace-nowrap px-6 py-3 rounded-2xl cursor-pointer font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 group",
+                        activeLeague === name ? "gradient-sports text-white shadow-xl" : "glass hover:bg-muted text-muted-foreground border border-white/5"
+                      )}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    >
+                      <span className="truncate max-w-[200px]">{name}</span>
+                      <motion.span
+                        className={cn(
+                          "px-2 py-0.5 rounded-lg text-[8px] font-black",
+                          activeLeague === name ? "bg-white/20 text-white" : "bg-primary/10 text-primary"
+                        )}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {count}
+                      </motion.span>
+                    </motion.button>
+                  ))}
+                </AnimatePresence>
+
+                {hasMoreLeaguesToLoad && (
+                  <motion.button
+                    onClick={loadMore}
+                    className="w-full mt-4 px-8 py-3.5 cursor-pointer rounded-2xl glass hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all duration-300 text-[10px] font-black uppercase tracking-[0.3em] border border-white/5 flex items-center justify-center gap-3 group"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <span>Load More Leagues</span>
+                    <motion.div
+                      animate={{ y: [0, 3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ChevronRight className="w-4 h-4 rotate-90" />
+                    </motion.div>
+                    <span className="text-[8px] opacity-50">+5</span>
+                  </motion.button>
+                )}
+              </motion.div>
             </div>
           </nav>
 

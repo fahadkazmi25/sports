@@ -1,75 +1,187 @@
 "use client"
 
 import React, { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import { Trophy, Zap, Activity } from "lucide-react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { ArrowRight, PlayCircle, Star, TrendingUp } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollY } = useScroll()
-    const y1 = useTransform(scrollY, [0, 500], [0, 200])
-    const opacity = useTransform(scrollY, [0, 300], [1, 0])
+    const y1 = useTransform(scrollY, [0, 500], [0, 100])
+    const y2 = useTransform(scrollY, [0, 500], [0, -100])
 
     return (
         <section
             ref={containerRef}
-            className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+            className="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden bg-background"
         >
-            {/* Background Animated Elements */}
-            <div className="absolute inset-0 z-0">
-                <motion.div
-                    style={{ y: y1 }}
-                    className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse"
-                />
-                <motion.div
-                    style={{ y: y1 }}
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse delay-700"
-                />
-            </div>
+            {/* Background Texture/Gradient */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-background to-background z-0" />
 
-            <div className="container mx-auto px-4 z-10 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    style={{ opacity }}
-                >
-                    <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold uppercase tracking-[0.2em] text-primary mb-8 shadow-xl">
-                        <Activity className="w-4 h-4 animate-bounce" />
-                        <span>Live Intelligence Enabled</span>
-                    </div>
+            <div className="container mx-auto px-4 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase italic leading-[0.8]">
-                        <span className="block text-foreground">The Future of</span>
-                        <span className="block gradient-sports bg-clip-text text-transparent drop-shadow-2xl">Sports Motion.</span>
-                    </h1>
+                    {/* Left Side: Visuals (Image + Glass Cards) */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative hidden lg:block h-[600px] w-full"
+                    >
+                        {/* Main Hero Image */}
+                        <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10">
+                            <Image
+                                src="/soccer-player-with-ball-grass-field.jpg"
+                                alt="Agile soccer player active on grass field"
+                                fill
+                                className="object-cover object-center scale-105 hover:scale-110 transition-transform duration-[2s] ease-in-out"
+                                priority
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        </div>
 
-                    <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground font-light tracking-wide mb-12">
-                        Immersive 3D Match Discovery. Interactive League Insights.
-                        Real-time data meets premium cinematic design.
-                    </p>
+                        {/* Floating Glass Card 1: Live Stats */}
+                        <motion.div
+                            style={{ y: y1 }}
+                            className="absolute -right-8 top-20 glass p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 w-48"
+                        >
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 bg-green-500/20 rounded-lg">
+                                    <TrendingUp className="w-4 h-4 text-green-400" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Live Activity</p>
+                                    <p className="text-sm font-black">42 Matches</p>
+                                </div>
+                            </div>
+                            <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                <div className="h-full bg-green-500 w-3/4 animate-pulse" />
+                            </div>
+                        </motion.div>
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <button className="group relative px-8 py-4 rounded-xl gradient-sports text-white font-bold overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
-                            <span className="relative z-10 flex items-center gap-2">
-                                Explore Matches <Zap className="w-5 h-5 fill-current" />
+                        {/* Floating Glass Card 2: Player Rating */}
+                        <motion.div
+                            style={{ y: y2 }}
+                            className="absolute -left-8 bottom-32 glass p-4 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 flex items-center gap-4"
+                        >
+                            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                                <Image src="/serie-b.png" alt="League" fill className="object-contain bg-white/10 p-1" />
+                            </div>
+                            <div>
+                                <div className="flex items-center gap-1 mb-1">
+                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                    <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                                </div>
+                                <p className="text-xs font-black">Top Rated League</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right Side: Typography & Content */}
+                    <div className="flex flex-col items-start text-left space-y-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black tracking-[0.2em] uppercase"
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        </button>
+                            Wait for nothing
+                        </motion.div>
 
-                        <button className="px-8 py-4 rounded-xl glass border border-white/10 font-bold hover:bg-white/5 transition-all">
-                            View Rankings
-                        </button>
+                        <div className="space-y-4 relative">
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="font-tourney text-7xl md:text-8xl lg:text-[7rem] leading-[0.9] font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/50"
+                            >
+                                APEX<br /><span className="text-primary/90">SPORTS</span>
+                            </motion.h1>
+
+                            <motion.h2
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="text-2xl md:text-3xl font-light text-muted-foreground tracking-tight"
+                            >
+                                Global Football, <span className="text-white font-medium italic">Unified.</span>
+                            </motion.h2>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="text-base text-muted-foreground/80 max-w-md leading-relaxed"
+                            >
+                                Experience 3D match discovery with live data from 40+ leagues worldwide. The premium universe for elite sports fans.
+                            </motion.p>
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="flex flex-wrap items-center gap-4"
+                        >
+                            <Link href="#leagues" className="group relative px-8 py-4 bg-white text-black rounded-xl font-black uppercase tracking-wider text-xs overflow-hidden transition-all hover:bg-white/90 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
+                                <span className="relative z-10 flex items-center gap-2">
+                                    Explore Leagues <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </span>
+                            </Link>
+
+                            <Link href="#matches" className="group px-8 py-4 glass border border-white/10 rounded-xl font-black uppercase tracking-wider text-xs hover:bg-white/5 transition-all flex items-center gap-2">
+                                <PlayCircle className="w-4 h-4 text-primary" />
+                                Watch Highlights
+                            </Link>
+                        </motion.div>
+
+                        {/* Trust/Stats Row */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.8 }}
+                            className="pt-8 border-t border-white/5 w-full grid grid-cols-3 gap-8"
+                        >
+                            <div>
+                                <h4 className="text-2xl font-black font-tourney">40+</h4>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Leagues</p>
+                            </div>
+                            <div>
+                                <h4 className="text-2xl font-black font-tourney">24/7</h4>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Live Data</p>
+                            </div>
+                            <div>
+                                <h4 className="text-2xl font-black font-tourney">10M+</h4>
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Fans</p>
+                            </div>
+                        </motion.div>
                     </div>
-                </motion.div>
-            </div>
 
-            {/* Floating 3D Cards or Icons could go here */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-                <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center p-1">
-                    <div className="w-1 h-3 bg-muted-foreground rounded-full" />
+                    {/* Mobile Image (Visible only on small screens) */}
+                    <div className="lg:hidden relative h-[300px] w-full rounded-3xl overflow-hidden mt-8 shadow-2xl">
+                        <Image
+                            src="/soccer-player-with-ball-grass-field.jpg"
+                            alt="Agile soccer player active on grass field"
+                            fill
+                            className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+                    </div>
+
                 </div>
             </div>
+
+            {/* Background Accent glow */}
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] pointer-events-none opacity-20 mix-blend-screen" />
         </section>
     )
 }
