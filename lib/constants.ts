@@ -23,4 +23,10 @@ export const TOP_LEAGUES = [
         logo: "/serie-b.png",
         accent: "text-green-400"
     },
+    {
+        name: "Coupe de France",
+        color: "from-[#0055a4] via-[#003d7a] to-[#001a33]",
+        logo: "/coupe-de-france.png",
+        accent: "text-blue-500"
+    },
 ]

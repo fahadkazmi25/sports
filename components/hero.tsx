@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, PlayCircle, Star, TrendingUp } from "lucide-react"
+import { ArrowRight, PlayCircle, Star, Activity } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -49,7 +49,7 @@ export function Hero() {
                         >
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="p-2 bg-green-500/20 rounded-lg">
-                                    <TrendingUp className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                    <Activity className="w-4 h-4 text-green-600 dark:text-green-400" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Live Activity</p>

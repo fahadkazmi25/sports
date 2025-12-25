@@ -23,14 +23,16 @@ export default function LeaguePage() {
         "english-premier-league": "/premiere_league-removebg-preview.png",
         "german-bundesliga": "/bundesliga-dark.jpg",
         "romanian-super-liga": "/romanion-league.png",
-        "italian-serie-b": "/serie-b.png"
+        "italian-serie-b": "/serie-b.png",
+        "coupe-de-france": "/coupe-de-france.png"
     }
 
     const leagueColors: Record<string, string> = {
         "english-premier-league": "from-[#3d195d] via-[#2a1140] to-[#1a0a29]",
         "german-bundesliga": "from-[#1f1f1f] via-[#121212] to-black",
         "romanian-super-liga": "from-[#002d5e] via-[#001f42] to-[#001229]",
-        "italian-serie-b": "from-[#005c30] via-[#003d20] to-[#002915]"
+        "italian-serie-b": "from-[#005c30] via-[#003d20] to-[#002915]",
+        "coupe-de-france": "from-[#0055a4] via-[#003d7a] to-[#001a33]"
     }
 
     const currentLogo = leagueLogos[slug as string]

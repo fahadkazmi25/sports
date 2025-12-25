@@ -154,6 +154,14 @@
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
+.drop-shadow-blue {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+}
+
+.drop-shadow-orange {
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.6));
+}
+
 /* ===============================
    3D EFFECTS
 ================================ */
@@ -178,4 +186,29 @@
 
 .dark .initials-contrast {
   color: #f8fafc !important;
+}
+
+/* ===============================
+   THEME TRANSITION (View Transitions API)
+================================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483646;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 2147483646;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
 }

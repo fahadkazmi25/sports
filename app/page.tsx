@@ -84,100 +84,110 @@ export default function Home() {
       <Hero />
 
       {/* Top Leagues Navigation - Featured */}
-      <section id="leagues" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
+      <section id="leagues" className="py-24 bg-background relative overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16">
             <div>
-              <h2 className="text-4xl font-black tracking-tighter uppercase italic">Elite Leagues</h2>
-              <p className="text-muted-foreground">Select a league to explore detailed match states.</p>
+              <p className="text-primary text-xs font-black uppercase tracking-[0.3em] mb-2">/ Featured</p>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-foreground">Elite Leagues</h2>
             </div>
+            <p className="text-muted-foreground text-sm max-w-xs">Select a league to dive into detailed match data and statistics.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {topLeagues.map((league, i) => (
               <Link
                 key={league.name}
                 href={`/league/${slugify(league.name)}`}
-                className="group perspective-1000"
+                className={cn(
+                  "group relative block rounded-3xl overflow-hidden transition-all duration-500",
+                  "shadow-xl hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-lg dark:hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]",
+                  i === 0 ? "lg:col-span-2 lg:row-span-2" : ""
+                )}
               >
                 <motion.div
-                  // initial={{ opacity: 0, y: 30 }}
-                  // whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1, duration: 0.6, ease: "easeOut" }}
-                  // whileHover={{
-                  //   y: -10,
-                  //   rotateX: 2,
-                  //   rotateY: 2,
-                  //   scale: 1.02
-                  // }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
                   className={cn(
-                    "relative h-64 rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500",
-                    "bg-gradient-to-br " + league.color
+                    "relative w-full h-full min-h-[280px] flex flex-col justify-between p-6 md:p-8",
+                    "bg-card border-2 border-border transition-colors duration-500",
+                    "group-hover:border-primary/50",
+                    "dark:bg-card/50 dark:border-border/50 dark:backdrop-blur-sm dark:group-hover:border-primary/30",
+                    i === 0 && "lg:min-h-[580px]"
                   )}
                 >
-                  {/* Decorative Background Elements */}
-                  <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl -mr-10 -mt-10" />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/40 rounded-full blur-3xl -ml-10 -mb-10" />
+                  {/* Background Gradient Accent (hover only) */}
+                  <div className={cn(
+                    "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br",
+                    league.color
+                  )} style={{ mixBlendMode: 'soft-light' }} />
+
+                  {/* Accent Bar at Bottom */}
+                  {/* <div className={cn(
+                    "absolute bottom-0 left-0 right-0 h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left bg-gradient-to-r",
+                    league.color
+                  )} /> */}
+
+                  {/* Top Row: Index & Arrow */}
+                  <div className="relative z-10 flex items-start justify-between ">
+                    <span className="font-tourney text-6xl md:text-7xl font-black text-foreground/50 group-hover:text-foreground dark:group-hover:text-foreground transition-colors duration-500 leading-none select-none">
+                      0{i + 1}
+                    </span>
+                    <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center bg-background opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 shadow-sm">
+                      <ChevronRight className="w-5 h-5 text-foreground" />
+                    </div>
                   </div>
 
-                  {/* Glass Overlay */}
-                  <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] group-hover:backdrop-blur-none transition-all duration-500" />
-
-                  {/* Animated Gloss Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-
-                  <div className="absolute inset-0 p-8 flex flex-col items-center justify-between z-10">
-                    <div className="w-full flex justify-between items-start">
-                      <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-xl group-hover:border-white/20 transition-all">
-                        <Sparkles className={cn("w-5 h-5", league.accent)} />
-                      </div>
-                      <div className="px-3 py-1 rounded-full bg-black/30 border border-white/5 backdrop-blur-md text-[8px] font-black uppercase tracking-[0.2em] text-white/70">
-                        Top Elite
-                      </div>
-                    </div>
-
+                  {/* Center: Logo */}
+                  <div className="relative z-10 flex-1 flex items-center justify-center my-4">
                     <div className={cn(
-                      "relative w-28 h-28 mb-4 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center rounded-full",
-                      league.name === "English Premier League" && " "
+                      "relative transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2",
+                      i === 0 ? "w-32 h-32 md:w-44 md:h-44" : "w-20 h-20 md:w-24 md:h-24"
                     )}>
-                      {/* Logo Glow/Pool */}
-                      <div className="absolute inset-0 bg-white/10 rounded-full blur-2xl transform scale-150" />
-
+                      {/* Glow */}
+                      <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <Image
                         src={league.logo}
                         alt={league.name}
                         fill
-                        className="relative z-10 object-contain p-2"
-                        sizes="112px"
+                        className="relative z-10 object-contain drop-shadow-lg"
+                        sizes={i === 0 ? "176px" : "96px"}
                       />
-                    </div>
-
-                    <div className="text-center w-full">
-                      <h3 className="text-lg font-black text-white uppercase italic tracking-tighter leading-tight group-hover:text-white transition-colors">
-                        {league.name}
-                      </h3>
-                      <div className="mt-2 flex items-center justify-center gap-2">
-                        <span className="h-px w-4 bg-white/20" />
-                        <p className="text-white/50 text-[9px] font-bold tracking-[0.2em] uppercase">
-                          {leagueStats[league.name] || 0} Matches
-                        </p>
-                        <span className="h-px w-4 bg-white/20" />
-                      </div>
                     </div>
                   </div>
 
-                  {/* Bottom Highlight */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                  {/* Bottom: Name & Stats */}
+                  <div className="relative z-10 space-y-1">
+                    <h3 className={cn(
+                      "font-black text-foreground uppercase tracking-tight leading-tight transition-colors duration-300 group-hover:text-primary",
+                      i === 0 ? "text-base md:text-3xl" : "text-base md:text-lg"
+                    )}>
+                      {league.name}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-px bg-border group-hover:bg-primary/50 transition-colors duration-300" />
+                      <p className="text-muted-foreground text-[10px] font-bold tracking-[0.15em] uppercase group-hover:text-foreground transition-colors duration-300">
+                        {leagueStats[league.name] || 0} Matches
+                      </p>
+                    </div>
+                  </div>
+
+
                 </motion.div>
               </Link>
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Matches Section */}
-      <section id="matches" className="py-20 relative">
+      < section id="matches" className="py-20 relative" >
         <div className="container mx-auto px-4">
           {/* League Navigation with Match Counts */}
           <nav className="mb-12 glass border border-white/5 p-8 rounded-[3rem] overflow-hidden">
@@ -352,7 +362,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   )
 }

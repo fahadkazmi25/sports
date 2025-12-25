@@ -46,7 +46,7 @@ export default function Error({
                 <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <button
                         onClick={() => reset()}
-                        className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-red-500 text-white font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg hover:shadow-red-500/25"
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-red-500 text-white font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg hover:shadow-red-500/25"
                     >
                         <RotateCcw className="w-4 h-4" />
                         Replay Query
@@ -54,7 +54,7 @@ export default function Error({
 
                     <Link
                         href="/"
-                        className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 hover:bg-white/5 font-black uppercase tracking-widest transition-all"
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-2xl glass border border-white/10 hover:bg-white/5 font-black uppercase tracking-widest transition-all"
                     >
                         <Home className="w-4 h-4" />
                         Home Stadium

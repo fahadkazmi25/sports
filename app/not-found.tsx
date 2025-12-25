@@ -29,7 +29,7 @@ export default function NotFound() {
 
                 <Link
                     href="/"
-                    className="relative z-10 gradient-sports text-white px-10 py-4 rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl hover:scale-105 transition-transform flex items-center gap-3"
+                    className="relative z-10 gradient-sports text-white px-4 py-2 rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl hover:scale-105 transition-transform flex items-center gap-3"
                 >
                     <Home className="w-4 h-4" />
                     Return to Pitch

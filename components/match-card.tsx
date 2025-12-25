@@ -94,53 +94,73 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, index = 0, highligh
                 </div>
 
                 {/* Match Core Layout */}
-                <div className="relative z-20 px-4 py-8 flex items-center justify-between gap-2 flex-grow">
+                <div className="relative z-20 px-4 py-8 grid grid-cols-[1fr_auto_1fr] gap-4 items-center flex-grow">
 
                     {/* Home Team */}
-                    <div className="flex-1 flex flex-col items-center text-center space-y-3">
-                        <div className="relative group/team">
-                            <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-lg opacity-0 group-hover/team:opacity-100 transition-opacity transform scale-90" />
-                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent border border-white/20 dark:border-white/5 flex items-center justify-center shadow-lg transition-transform group-hover/team:scale-105">
-                                <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-primary/80" />
-                                <span className="absolute inset-0 flex items-center justify-center font-tourney font-black text-xs text-foreground/80 tracking-tighter uppercase opacity-0 group-hover/team:opacity-100 transition-opacity">
+                    <div className="relative flex flex-col items-start gap-3 group/home p-2 rounded-xl transition-all duration-500 hover:bg-primary/5">
+                        {/* Watermark */}
+                        <span className="absolute -left-4 -top-6 text-8xl font-black text-foreground/10 font-tourney select-none z-0 transition-colors group-hover/home:text-primary/10 overflow-hidden pointer-events-none">
+                            {getInitials(match.home)}
+                        </span>
+
+                        {/* Badge */}
+                        <div className="relative z-10 px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-[9px] font-black uppercase tracking-widest text-primary">
+                            Home
+                        </div>
+
+                        <div className="relative z-10 flex flex-col items-center gap-3 w-full">
+                            <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-primary via-primary/80 to-blue-900 border border-white/10 shadow-lg flex items-center justify-center group-hover/home:scale-105 group-hover/home:rotate-3 transition-all duration-500">
+                                <span className="font-tourney font-black text-lg text-white drop-shadow-md">
                                     {getInitials(match.home)}
                                 </span>
                             </div>
+                            <h3 className="text-sm font-bold font-outfit uppercase leading-tight text-foreground transition-colors group-hover/home:text-primary line-clamp-2">
+                                {highlightText(match.home || "TBD")}
+                            </h3>
                         </div>
-                        <h3 className="text-sm font-bold font-outfit uppercase tracking-tight leading-tight text-foreground transition-colors group-hover:text-primary line-clamp-2 max-w-[120px]">
-                            {highlightText(match.home || "TBD")}
-                        </h3>
                     </div>
 
                     {/* VS / SCORE */}
-                    <div className="flex flex-col items-center justify-center min-w-[60px] sm:min-w-[80px]">
+                    <div className="flex flex-col items-center justify-center w-16 relative z-20">
                         {derivedStatus === 'UPCOMING' ? (
-                            <div className="flex flex-col items-center gap-1">
-                                <span className="text-2xl font-black font-tourney text-muted-foreground/30">VS</span>
+                            <div className="relative group/vs">
+                                <div className="absolute inset-0 bg-white/20 blur-xl rounded-full opacity-0 group-hover/vs:opacity-100 transition-opacity" />
+                                <span className="relative text-3xl font-black font-tourney text-muted-foreground/20 group-hover/vs:text-foreground/50 transition-colors">VS</span>
                             </div>
                         ) : (
-                            <div className="flex items-center gap-2 bg-muted/30 px-3 py-1.5 rounded-lg border border-border/30 backdrop-blur-sm">
-                                <span className="text-2xl font-black font-tourney text-foreground">{match.score?.home ?? 0}</span>
-                                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                                <span className="text-2xl font-black font-tourney text-foreground">{match.score?.away ?? 0}</span>
+                            <div className="flex flex-col items-center gap-1">
+                                <div className="flex items-center justify-center gap-1">
+                                    <span className="text-3xl font-black font-tourney text-foreground drop-shadow-blue">{match.score?.home ?? 0}</span>
+                                    <span className="text-muted-foreground/40 font-black px-1">:</span>
+                                    <span className="text-3xl font-black font-tourney text-foreground drop-shadow-orange">{match.score?.away ?? 0}</span>
+                                </div>
+                                <div className="h-0.5 w-8 bg-gradient-to-r from-primary via-white/20 to-orange-500 rounded-full" />
                             </div>
                         )}
                     </div>
 
                     {/* Away Team */}
-                    <div className="flex-1 flex flex-col items-center text-center space-y-3">
-                        <div className="relative group/team">
-                            <div className="absolute inset-0 bg-orange-500/20 rounded-2xl blur-lg opacity-0 group-hover/team:opacity-100 transition-opacity transform scale-90" />
-                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-transparent border border-white/20 dark:border-white/5 flex items-center justify-center shadow-lg transition-transform group-hover/team:scale-105">
-                                <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500/80" />
-                                <span className="absolute inset-0 flex items-center justify-center font-tourney font-black text-xs text-foreground/80 tracking-tighter uppercase opacity-0 group-hover/team:opacity-100 transition-opacity">
+                    <div className="relative flex flex-col items-end text-right gap-3 group/away p-2 rounded-xl transition-all duration-500 hover:bg-orange-500/5">
+                        {/* Watermark */}
+                        <span className="absolute -right-4 -top-6 text-8xl font-black text-foreground/10 font-tourney select-none z-0 transition-colors group-hover/away:text-orange-500/10 overflow-hidden pointer-events-none">
+                            {getInitials(match.away)}
+                        </span>
+
+                        {/* Badge */}
+                        <div className="relative z-10 px-2 py-0.5 rounded bg-orange-500/10 border border-orange-500/20 text-[9px] font-black uppercase tracking-widest text-orange-500">
+                            Away
+                        </div>
+
+                        <div className="relative z-10 flex flex-col text-center justify-center items-center gap-3 w-full">
+                            <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-orange-500 via-orange-600 to-red-900 border border-white/10 shadow-lg flex items-center justify-center group-hover/away:scale-105 group-hover/away:-rotate-3 transition-all duration-500">
+                                <span className="font-tourney font-black text-lg text-white drop-shadow-md">
                                     {getInitials(match.away)}
                                 </span>
                             </div>
+                            <h3 className="text-sm font-bold font-outfit uppercase leading-tight text-foreground transition-colors group-hover/away:text-orange-500 line-clamp-2">
+                                {highlightText(match.away || "TBD")}
+                            </h3>
                         </div>
-                        <h3 className="text-sm font-bold font-outfit uppercase tracking-tight leading-tight text-foreground transition-colors group-hover:text-orange-500 line-clamp-2 max-w-[120px]">
-                            {highlightText(match.away || "TBD")}
-                        </h3>
                     </div>
                 </div>
 

@@ -209,7 +209,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                     {matches.length > 0 && (
                                         <div className="space-y-6">
                                             <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Matches</h3>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                                                 {matches.map((match, i) => (
                                                     <div key={i} onClick={handleClose}>
                                                         <MatchCard match={match} index={i} highlight={debouncedValue} />
