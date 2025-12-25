@@ -14,7 +14,7 @@ export const TOP_LEAGUES = [
     {
         name: "German Bundesliga",
         color: "from-[#1f1f1f] via-[#121212] to-black",
-        logo: "/Bundesliga_logo_(2017).svg.webp",
+        logo: "/bundesliga-dark.jpg",
         accent: "text-red-500"
     },
     {

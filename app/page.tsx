@@ -347,7 +347,7 @@ export default function Home() {
             <div className="mt-20 flex justify-center">
               <div className="flex items-center gap-3 px-8 py-4 rounded-2xl glass border border-primary/20 text-primary font-black uppercase tracking-[0.2em] text-xs">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Syncing Match Universe...
+                Loading more matches....
               </div>
             </div>
           )}

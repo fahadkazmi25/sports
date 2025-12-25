@@ -21,7 +21,7 @@ export default function LeaguePage() {
 
     const leagueLogos: Record<string, string> = {
         "english-premier-league": "/premiere_league-removebg-preview.png",
-        "german-bundesliga": "/Bundesliga_logo_(2017).svg.webp",
+        "german-bundesliga": "/bundesliga-dark.jpg",
         "romanian-super-liga": "/romanion-league.png",
         "italian-serie-b": "/serie-b.png"
     }
@@ -81,9 +81,9 @@ export default function LeaguePage() {
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10">
                         <Link
                             href="/"
-                            className="absolute top-8 left-8 flex cursor-pointer items-center gap-2 text-white/70 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] glass px-4 py-2 rounded-xl"
+                            className="absolute top-8 left-8 flex cursor-pointer items-center gap-2 text-white/70 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] glass px-4 py-2 rounded-xl z-50"
                         >
-                            <ArrowLeft className="w-4 h-4" /> Back to Universe
+                            <ArrowLeft className="w-4 h-4" /> Back to Home
                         </Link>
 
                         <motion.div
@@ -97,7 +97,7 @@ export default function LeaguePage() {
                                 <div className="absolute inset-0 bg-white/10 rounded-full blur-[60px] transform scale-150" />
 
                                 {currentLogo ? (
-                                    <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto transform hover:scale-110 transition-transform duration-500 drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+                                    <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto transform transition-transform duration-500 drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
                                         <Image
                                             src={currentLogo}
                                             alt={leagueName}
@@ -150,7 +150,7 @@ export default function LeaguePage() {
                                         key={sortOption.id}
                                         onClick={() => updateSort(sortOption.id)}
                                         className={cn(
-                                            "w-full flex items-center justify-between px-5 py-4 rounded-2xl font-black text-[10px] tracking-[0.15em] uppercase transition-all border",
+                                            "w-full flex cursor-pointer items-center justify-between px-5 py-4 rounded-2xl font-black text-[10px] tracking-[0.15em] uppercase transition-all border",
                                             currentSort === sortOption.id
                                                 ? "gradient-sports text-white border-primary shadow-lg"
                                                 : "glass hover:bg-muted text-muted-foreground border-transparent"
