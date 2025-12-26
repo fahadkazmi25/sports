@@ -116,6 +116,10 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
     const handleClose = () => {
         setSearchTerm("")
+        setDebouncedValue("")
+        const params = new URLSearchParams(searchParams.toString())
+        params.delete('q')
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false })
         onClose()
     }
 
@@ -162,7 +166,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                         {/* Content Scroll Area */}
                         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                             {!debouncedValue ? (
-                                <div className="h-full flex flex-col items-center justify-center text-muted-foreground opacity-30 gap-4">
+                                <div className="h-full flex flex-col text-center items-center justify-center text-muted-foreground opacity-30 gap-4">
                                     <Sparkles className="w-16 h-16" />
                                     <p className="text-xl font-black uppercase tracking-widest">Start Typing to Explore</p>
                                 </div>

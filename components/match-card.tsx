@@ -108,7 +108,7 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, index = 0, highligh
                             Home
                         </div>
 
-                        <div className="relative z-10 flex flex-col items-center gap-3 w-full">
+                        <div className="relative z-10 flex flex-col items-center gap-3  w-full">
                             <div className="w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-primary via-primary/80 to-blue-900 border border-white/10 shadow-lg flex items-center justify-center group-hover/home:scale-105 group-hover/home:rotate-3 transition-all duration-500">
                                 <span className="font-tourney font-black text-lg text-white drop-shadow-md">
                                     {getInitials(match.home)}
