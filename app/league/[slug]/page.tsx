@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Suspense } from "react"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { MatchCard, MatchSkeleton } from "@/components/match-card"
 import { motion, AnimatePresence } from "framer-motion"
@@ -9,7 +9,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { cn, slugify } from "@/lib/utils"
 
-export default function LeaguePage() {
+function LeaguePageContent() {
     const { slug } = useParams()
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -55,7 +55,7 @@ export default function LeaguePage() {
     }, [slug, currentSort])
 
     const updateSort = (newSort: string) => {
-        const params = new URLSearchParams(searchParams)
+        const params = new URLSearchParams(searchParams.toString())
         params.set('sort', newSort)
         router.push(`/league/${slug}?${params.toString()}`)
     }
@@ -206,5 +206,13 @@ export default function LeaguePage() {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function LeaguePage() {
+    return (
+        <Suspense fallback={<MatchSkeleton />}>
+            <LeaguePageContent />
+        </Suspense>
     )
 }
