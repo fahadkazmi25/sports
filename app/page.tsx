@@ -18,6 +18,7 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true)
   const [leagueStats, setLeagueStats] = useState<Record<string, number>>({})
   const [activeLeague, setActiveLeague] = useState("all")
+  const [isToday, setIsToday] = useState(false)
 
   const observer = useRef<IntersectionObserver | null>(null)
   const lastMatchRef = useCallback((node: HTMLDivElement) => {
@@ -38,7 +39,7 @@ export default function Home() {
 
       try {
         const leagueQuery = activeLeague !== "all" ? `&league=${slugify(activeLeague)}` : ""
-        const res = await fetch(`/api/matches?page=${page}&limit=12&includeStats=true${leagueQuery}`)
+        const res = await fetch(`/api/matches?page=${page}&limit=12&includeStats=true${leagueQuery}${isToday ? "&today=true" : ""}`)
         const data = await res.json()
 
         if (page === 1) {
@@ -58,14 +59,14 @@ export default function Home() {
     }
 
     fetchMatches()
-  }, [page, activeLeague])
+  }, [page, activeLeague, isToday])
 
   // Reset pagination when league changes
   useEffect(() => {
     setPage(1)
     setMatches([])
     setHasMore(true)
-  }, [activeLeague])
+  }, [activeLeague, isToday])
 
   const topLeagues = TOP_LEAGUES
 
@@ -106,7 +107,7 @@ export default function Home() {
                 className={cn(
                   "group relative block rounded-3xl overflow-hidden transition-all duration-500",
                   "shadow-xl hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-lg dark:hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]",
-                  i === 0 ? "lg:col-span-2 lg:row-span-2" : ""
+                  i === 0 ? "md:col-span-2 lg:col-span-2 lg:row-span-2" : ""
                 )}
               >
                 <motion.div
@@ -157,7 +158,7 @@ export default function Home() {
                         alt={league.name}
                         fill
                         className="relative z-10 object-contain drop-shadow-lg"
-                        sizes={i === 0 ? "176px" : "96px"}
+                        sizes="(max-width: 768px) 100px, (max-width: 1200px) 150px, 200px"
                       />
                     </div>
                   </div>
@@ -237,6 +238,21 @@ export default function Home() {
                   layout
                 >
                   <LayoutGrid className="w-4 h-4" /> All Matches
+                </motion.button>
+
+                <motion.button
+                  onClick={() => setIsToday(!isToday)}
+                  className={cn(
+                    "whitespace-nowrap px-6 py-3 rounded-2xl cursor-pointer font-black text-[10px] tracking-[0.2em] uppercase flex items-center gap-2",
+                    isToday ? "bg-red-500 text-white shadow-xl shadow-red-500/20" : "glass hover:bg-muted text-muted-foreground border border-white/5"
+                  )}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  layout
+                >
+                  <div className={cn("w-2 h-2 rounded-full", isToday ? "bg-white animate-pulse" : "bg-red-500")} />
+                  {isToday ? "Today's Live" : "Show Today"}
                 </motion.button>
 
                 <AnimatePresence mode="popLayout">

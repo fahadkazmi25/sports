@@ -67,7 +67,7 @@ export default function LeaguePage() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="relative h-[300px] md:h-[450px] rounded-[40px] overflow-hidden mb-16 shadow-2xl group"
+                    className="relative h-[400px] md:h-[450px] rounded-[32px] md:rounded-[40px] overflow-hidden mb-12 md:mb-16 shadow-2xl group"
                 >
                     <div className={cn(
                         "absolute inset-0 opacity-90 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br",
@@ -80,54 +80,54 @@ export default function LeaguePage() {
                         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-black/40 rounded-full blur-[120px] -ml-64 -mb-64" />
                     </div>
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 md:p-8 z-10">
                         <Link
                             href="/"
-                            className="absolute top-8 left-8 flex cursor-pointer items-center gap-2 text-white/70 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] glass px-4 py-2 rounded-xl z-50"
+                            className="absolute top-6 left-6 md:top-8 md:left-8 flex cursor-pointer items-center gap-2 text-white/70 hover:text-white transition-all text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] glass px-3 py-1.5 md:px-4 md:py-2 rounded-xl z-50"
                         >
-                            <ArrowLeft className="w-4 h-4" /> Back to Home
+                            <ArrowLeft className="w-3.5 h-3.5 md:w-4 h-4" /> Back to Home
                         </Link>
 
                         <motion.div
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="relative"
+                            className="relative w-full max-w-xs md:max-w-none"
                         >
-                            <div className="relative mb-8">
+                            <div className="relative mb-4 md:mb-8">
                                 {/* Logo Background Pool for Contrast */}
-                                <div className="absolute inset-0 bg-white/10 rounded-full blur-[60px] transform scale-150" />
+                                <div className="absolute inset-0 bg-white/10 rounded-full blur-[40px] md:blur-[60px] transform scale-150" />
 
                                 {currentLogo ? (
-                                    <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto transform transition-transform duration-500 drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]">
+                                    <div className="relative w-24 h-24 md:w-40 md:h-40 mx-auto transform transition-transform duration-500 drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]">
                                         <Image
                                             src={currentLogo}
                                             alt={leagueName}
                                             fill
                                             className="object-contain relative z-10"
-                                            sizes="(max-width: 768px) 128px, 160px"
+                                            sizes="(max-width: 768px) 96px, 160px"
                                         />
                                     </div>
                                 ) : (
-                                    <Trophy className="w-24 h-24 text-white mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]" />
+                                    <Trophy className="w-16 h-16 md:w-24 md:h-24 text-white mx-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]" />
                                 )}
                             </div>
 
-                            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase italic leading-tight drop-shadow-2xl">
+                            <h1 className="text-3xl md:text-7xl font-black text-white tracking-tighter uppercase italic leading-tight drop-shadow-2xl px-4">
                                 {leagueName}
                             </h1>
-                            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                                <div className="glass px-6 py-2 rounded-full text-white font-black text-[10px] tracking-[0.2em] uppercase border border-white/20 shadow-xl">
+                            <div className="mt-6 md:mt-8 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+                                <div className="glass px-5 py-1.5 md:px-6 md:py-2 rounded-full text-white font-black text-[9px] md:text-[10px] tracking-[0.2em] uppercase border border-white/20 shadow-xl">
                                     PROFESSIONAL LEAGUE
                                 </div>
-                                <div className="glass px-6 py-2 rounded-full text-white font-black text-[10px] tracking-[0.2em] uppercase border border-white/20 shadow-xl">
+                                <div className="glass px-5 py-1.5 md:px-6 md:py-2 rounded-full text-white font-black text-[9px] md:text-[10px] tracking-[0.2em] uppercase border border-white/20 shadow-xl">
                                     {matches.length} COMPETITIVE FIXTURES
                                 </div>
                             </div>
                         </motion.div>
                     </div>
 
-                    <div className="absolute -bottom-10 -right-10 text-[200px] font-black text-white/5 uppercase italic select-none pointer-events-none whitespace-nowrap tracking-tighter">
+                    <div className="absolute -bottom-10 -right-10 text-[120px] md:text-[200px] font-black text-white/5 uppercase italic select-none pointer-events-none whitespace-nowrap tracking-tighter">
                         {leagueName}
                     </div>
                 </motion.div>

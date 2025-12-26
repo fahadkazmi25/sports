@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://apexsports.com/",
+    // url: "https://apexsports.com/",
     title: "ApexSports | Premier Match Discovery",
     description: "The future of sports motion design and match data visualization.",
     siteName: "ApexSports",
@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ApexSports | Premium Sports Universe",
     description: "Real-time data meets premium cinematic design.",
+  },
+  icons: {
+    icon: "/sport-football.svg",
+    shortcut: "/sport-football.svg",
+    apple: "/sport-football.svg",
   },
 };
 

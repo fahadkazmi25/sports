@@ -10,6 +10,7 @@ import { useTheme } from "next-themes"
 import { MatchCard, MatchSkeleton } from "@/components/match-card"
 import { TOP_LEAGUES } from "@/lib/constants"
 import { slugify, cn } from "@/lib/utils"
+import { useSearchParams, usePathname } from "next/navigation"
 
 interface SearchOverlayProps {
     isOpen: boolean;
@@ -25,6 +26,25 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
     const inputRef = useRef<HTMLInputElement>(null)
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const pathname = usePathname()
+
+    // Initialize search term from URL
+    useEffect(() => {
+        const query = searchParams.get('q')
+        if (query && isOpen) {
+            setSearchTerm(query)
+        }
+    }, [isOpen, searchParams])
+
+    // Esc key to close
+    useEffect(() => {
+        const handleEsc = (e: KeyboardEvent) => {
+            if (e.key === "Escape") handleClose()
+        }
+        window.addEventListener("keydown", handleEsc)
+        return () => window.removeEventListener("keydown", handleEsc)
+    }, [])
 
     // Focus input when opened
     useEffect(() => {
@@ -41,9 +61,20 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedValue(searchTerm)
+
+            // Update URL
+            if (isOpen) {
+                const params = new URLSearchParams(searchParams.toString())
+                if (searchTerm) {
+                    params.set('q', searchTerm)
+                } else {
+                    params.delete('q')
+                }
+                router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+            }
         }, 400)
         return () => clearTimeout(handler)
-    }, [searchTerm])
+    }, [searchTerm, isOpen, router, pathname, searchParams])
 
     // Search Logic
     useEffect(() => {
@@ -124,7 +155,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                 onClick={handleClose}
                                 className="p-2 hover:bg-muted/50 rounded-full transition-colors"
                             >
-                                <X className="w-6 h-6 text-muted-foreground" />
+                                <X className="w-6 h-6 text-muted-foreground cursor-pointer" />
                             </button>
                         </div>
 
@@ -169,6 +200,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                                                     alt={league.name}
                                                                     fill
                                                                     className="object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500"
+                                                                    sizes="80px"
                                                                 />
                                                             </div>
                                                             <div className="flex flex-col items-end text-right z-10">

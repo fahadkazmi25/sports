@@ -38,6 +38,7 @@ export function Hero() {
                                 fill
                                 className="object-cover object-center scale-105 hover:scale-110 transition-transform duration-[2s] ease-in-out"
                                 priority
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         </div>
@@ -67,7 +68,13 @@ export function Hero() {
                             className="absolute -left-8 bottom-32 glass p-4 rounded-2xl shadow-lg border border-border/50 flex items-center gap-4"
                         >
                             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
-                                <Image src="/Premier_League_Logo.svg.png" alt="League" fill className="object-contain bg-muted/20 p-1" />
+                                <Image
+                                    src="/premiere_league-removebg-preview.png"
+                                    alt="League"
+                                    fill
+                                    className="object-contain bg-muted/20 p-1"
+                                    sizes="48px"
+                                />
                             </div>
                             <div>
                                 <div className="flex items-center gap-1 mb-1">
@@ -173,6 +180,8 @@ export function Hero() {
                             alt="Agile soccer player active on grass field"
                             fill
                             className="object-cover"
+                            sizes="100vw"
+                            priority
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
                     </div>

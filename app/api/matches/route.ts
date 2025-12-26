@@ -11,6 +11,7 @@ export async function GET(request: Request) {
         const limit = parseInt(searchParams.get('limit') || '20');
         const sort = searchParams.get('sort') || 'time'; // time, league, home, away
         const includeStats = searchParams.get('includeStats') === 'true';
+        const today = searchParams.get('today') === 'true';
 
         const filePath = path.join(process.cwd(), 'response.json');
         const jsonData = await fs.readFile(filePath, 'utf-8');
@@ -54,6 +55,12 @@ export async function GET(request: Request) {
 
                 return slugifiedData === slugifiedFilter || normalizedLeague.replace(/\s+/g, '-') === slugifiedFilter;
             });
+        }
+
+        if (today) {
+            const now = new Date();
+            const todayStr = now.toISOString().split('T')[0];
+            matches = matches.filter((m: any) => m.date === todayStr);
         }
 
         if (search) {
