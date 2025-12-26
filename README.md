@@ -93,3 +93,11 @@ Below is a detailed breakdown of the project requirements, their fulfillment sta
 - **Efficient API:** The backend API handles complex normalization of the `response.json` to ensure clean slugs regardless of special characters in the raw data.
 - **Glassmorphism UI:** A custom glassmorphism design system is implemented via Tailwind utilities for a futuristic, arcade-like sports feel.
 - **Refined Navigation:** A "pill" shaped sticky navbar that separates its mobile menu for better UX on smaller screens.
+
+## 🔌 Diagnostic & Error Pages
+
+To ensure maximum resilience and a polished user experience, the application includes custom-designed error states:
+
+- **Cinematic 404 Page (`app/not-found.tsx`):** A custom "Off Target" experience featuring construction-themed glass cards and high-contrast typography to guide lost users back to the home pitch.
+- **Global Error Boundary (`app/error.tsx`):** A "Match Interrupted" interface that captures runtime errors. It features a themed VAR (Video Assistant Referee) message and a "Replay Query" button to attempt a component reset without refreshing the page.
+- **Test Error Route (`app/test-error/page.tsx`):** A dedicated diagnostic route used during development to verify the appearance and functionality of the global error boundary.
