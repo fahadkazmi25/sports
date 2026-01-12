@@ -94,8 +94,6 @@ Below is a detailed breakdown of the project requirements, their fulfillment sta
 - **Glassmorphism UI:** A custom glassmorphism design system is implemented via Tailwind utilities for a futuristic, arcade-like sports feel.
 - **Refined Navigation:** A "pill" shaped sticky navbar that separates its mobile menu for better UX on smaller screens.
 
----
-
 ## 🔌 Diagnostic & Error Pages
 
 To ensure maximum resilience and a polished user experience, the application includes custom-designed error states:
